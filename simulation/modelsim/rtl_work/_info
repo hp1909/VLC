@@ -1,0 +1,32 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/hohaidang/Data/Code/SoC/DE1-SoC/DMA_2_SDRam-FPGA/Hardware/simulation/modelsim
+vDE1_SOC_golden_top
+!s110 1504623006
+!i10b 1
+!s100 JE<hFf[=fim57BKcORB=R1
+ITa<kQ<MFiEggWWKH``^Po1
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1504340039
+8/home/hohaidang/Data/Code/SoC/DE1-SoC/DMA_2_SDRam-FPGA/Hardware/DE1_SOC_golden_top.v
+F/home/hohaidang/Data/Code/SoC/DE1-SoC/DMA_2_SDRam-FPGA/Hardware/DE1_SOC_golden_top.v
+L0 3
+OV;L;10.4d;61
+r1
+!s85 0
+31
+!s108 1504623006.000000
+!s107 /home/hohaidang/Data/Code/SoC/DE1-SoC/DMA_2_SDRam-FPGA/Hardware/DE1_SOC_golden_top.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+/home/hohaidang/Data/Code/SoC/DE1-SoC/DMA_2_SDRam-FPGA/Hardware|/home/hohaidang/Data/Code/SoC/DE1-SoC/DMA_2_SDRam-FPGA/Hardware/DE1_SOC_golden_top.v|
+!i113 1
+o-vlog01compat -work work
+!s92 -vlog01compat -work work +incdir+/home/hohaidang/Data/Code/SoC/DE1-SoC/DMA_2_SDRam-FPGA/Hardware
+n@d@e1_@s@o@c_golden_top

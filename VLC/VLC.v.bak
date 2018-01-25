@@ -1,0 +1,79 @@
+module VLC(
+	input					clock,
+	input					reset_n,
+	input					iStart,
+	input					iRd_Data_valid,
+	input 					iWait_Rd_Req,
+	input 					iWait_Wr_Req,
+	input		[31:0]		iRData,
+	output		[31:0]		oWrData,
+	output					oWrite,
+	output					oRead,
+	output		[31:0]		oRead_Addr,
+	output		[31:0]		oWrite_Addr,
+	inout		[19:0] 		ioGPIO,
+	// Slave
+	input		[1:0]		iSL_Addr,
+	input					ichipselect,
+	input					iSL_Write,
+	input					iSL_Read,
+	input		[31:0]		iSL_Data,
+	output		[31:0]		oSL_Data
+	);
+
+wire				oDone_R,
+					oDone_W,
+					oDone,
+					Start;
+wire	[3:0]		oBurst_count;
+wire	[31:0]		Base_Rd_add,
+					Base_Wr_add;
+
+wire	[31:0]		iSize;
+wire 				oStart;
+mem_config conf(
+	.clock			(clock),
+	.reset_n		(reset_n),
+	.cs				(ichipselect),
+	.we				(iSL_Write),
+	.oe				(iSL_Read),
+	.addr			(iSL_Addr),
+	.datain			(iSL_Data),
+	.dataout		(oSL_Data),	
+	.oBase_Wr_add	(Base_Wr_add),
+	.oBase_Rd_add	(Base_Rd_add),
+	.oSize			(iSize),
+	.oStart			(Start)		// Start send
+	);
+	
+VLC_transmit send(
+	.iClock			(clock),
+	.iRst_n			(reset_n),
+	.iStart			(iStart),
+	.iWait_R		(iWait_Rd_Req),
+	.iRd_Data_valid	(iRd_Data_valid),
+	.iLength		(iSize),
+	.iRead_Addr		(Base_Rd_add),
+	.iRdata			(iRData),
+	.oRead_Addr		(oRead_Addr),
+	.oData			(ioGPIO[1]),
+	.oDone			(oDone_R),
+	.oRead			(oRead),
+	.oStart			(oStart)			// Start Receive
+	);
+VLC_receive	receive(
+	.iClock			(clock),
+	.iRst_n			(reset_n),
+	.iStart			(oStart),
+	.iWait_W		(iWait_Wr_Req),
+	.iRdata			(ioGPIO[11]),
+	.iWrite_Addr	(Base_Wr_add),
+	.iLength		(iSize),
+	.oWrite_Addr	(oWrite_Addr),
+	.oWrData		(oWrData),
+	.oDone			(oDone_W),
+	.oWrite			(oWrite),
+	.oBurst_count	(oBurst_count)
+	);
+assign oDone = oDone_R & oDone_W;
+endmodule 
